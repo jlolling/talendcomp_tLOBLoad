@@ -1,0 +1,79 @@
+<%@ jet 
+	imports="
+		org.talend.core.model.process.INode 
+		org.talend.core.model.process.ElementParameterParser 
+		org.talend.core.model.metadata.IMetadataTable 
+		org.talend.core.model.metadata.IMetadataColumn 
+		org.talend.core.model.process.IConnection
+		org.talend.core.model.process.IConnectionCategory
+		org.talend.designer.codegen.config.CodeGeneratorArgument
+		org.talend.core.model.metadata.types.JavaTypesManager
+		org.talend.core.model.metadata.types.JavaType
+		java.util.List
+		java.util.ArrayList
+    	java.util.Map
+	" 
+%>
+<%
+    CodeGeneratorArgument codeGenArgument = (CodeGeneratorArgument) argument;
+    INode node = (INode) codeGenArgument.getArgument();
+    String cid = node.getUniqueName();
+    String connectionName = null;
+    if (node.getIncomingConnections().size() > 0) {
+    	IConnection conn = node.getIncomingConnections().get(0);
+    	if (conn != null) {
+    		connectionName = conn.getName();
+    	}
+    }
+ 	List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>(); // dummy
+	List<IMetadataTable> metadatas = node.getMetadataList();
+	if (metadatas != null && metadatas.size() > 0) {
+        IMetadataTable metadata = metadatas.get(0);
+        if (metadata != null) {
+            listColumns = metadata.getListColumns();
+        }
+    } 
+	List<Map<String, String>> columnConfig = (List<Map<String,String>>) ElementParameterParser.getObjectValue(node, "__COLUMN_CONFIG__");
+%> 
+    // clear all previous values
+    <%=cid%>.reset();
+  	// set the values for the file name template  
+<%  
+    if (connectionName != null && columnConfig != null) {
+        // process value columns
+	    int columnIndex = 0;
+	    for (Map<String, String> ce : columnConfig) {
+            String columnName = ce.get("SCHEMA_COLUMN");
+            String fileTemplate = ce.get("LOB_FILE_TEMPLATE");
+            if (fileTemplate == null || fileTemplate.trim().isEmpty()) { 
+            	IMetadataColumn metaColumn = (IMetadataColumn) listColumns.get(columnIndex);
+            	String pattern = null; 
+            	if (metaColumn != null) {
+                    pattern = metaColumn.getPattern();
+                    if (pattern == null || pattern.isEmpty()) {
+                        pattern = "null";
+                    }
+                    String type = metaColumn.getTalendType().substring(3);
+                    if (("Object".equals(type) == false) && ("Document".equals(type) == false)) { %>
+    <%=cid%>.setValue("<%=columnName%>", <%=connectionName%>.<%=columnName%>, <%=pattern%>);
+<%		            }
+            	}
+            }
+			columnIndex++;
+        } // end for
+   	    columnIndex = 0;
+	    for (Map<String, String> ce : columnConfig) {
+            String columnName = ce.get("SCHEMA_COLUMN");
+            String fileTemplate = ce.get("LOB_FILE_TEMPLATE");
+            String charset = ce.get("CLOB_FILE_CHARSET");
+            if (charset == null || charset.trim().isEmpty()) {
+            	charset = "\"UTF-8\"";
+            }
+            if (fileTemplate != null && fileTemplate.trim().isEmpty() == false) { %>
+    <%=cid%>.downloadLob(<%=connectionName%>.<%=columnName%>, <%=fileTemplate%>, <%=charset%>);
+<%          } // end if
+			columnIndex++;
+        } // end for
+    } else { %>
+    // no connection or schema
+<%  } %>    
