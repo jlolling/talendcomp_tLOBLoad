@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.jlo.talendcomp</groupId>
+	<artifactId>jlo-talendcomp-jdbcblob</artifactId>
+	<version>1.1</version>
+	<packaging>jar</packaging>
+
+	<name>jlo-talendcomp-jdbcblob</name>
+	<organization>
+		<name>Jan Lolling</name>
+	</organization>
+
+	<description>JasperServer components</description>
+	<url>https://github.com/jlolling/talendcomp_tJasperServerFile</url>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Jan Lolling</name>
+			<email>jan.lolling@gmail.com</email>
+			<organization>cimt AG</organization>
+			<organizationUrl>https://www.cimt-ag.de</organizationUrl>
+		</developer>
+		<developer>
+			<name>Daniel Koch</name>
+			<email>Daniel.Koch@cimt-ag.de</email>
+			<organization>cimt AG</organization>
+			<organizationUrl>https://www.cimt-ag.de</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/jlolling/talendcomp_maven_plugins.git</connection>
+		<developerConnection>scm:git:ssh://github.com/jlolling/talendcomp_maven_plugins.git</developerConnection>
+		<url>http://github.com/jlolling/talendcomp_maven_plugins.git</url>
+	</scm>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.2</version>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>true</addMavenDescriptor>
+						<manifestEntries>
+							<Implementation-Title>jlo-talendcomp-jasperserver</Implementation-Title>
+							<Implementation-Version>${project.version}</Implementation-Version>
+							<Implementation-Vendor>Jan Lolling</Implementation-Vendor>
+							<Implementation-Timestamp>${maven.build.timestamp}</Implementation-Timestamp>
+							<Specification-Title>${project.name}</Specification-Title>
+							<Specification-Version>${project.artifact.selectedVersion.majorVersion}.${project.artifact.selectedVersion.minorVersion}</Specification-Version>
+							<Specification-Vendor>${project.organization.name}</Specification-Vendor>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>de.cimt.talendcomp</groupId>
+				<artifactId>cimt-talendcomp-maven-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<copyFromSourceBaseDir>${project.basedir}/talend_component</copyFromSourceBaseDir>
+					<componentBaseDir>${project.basedir}/talend_component</componentBaseDir>
+					<studioUserComponentFolder>/Data/Talend/Studio/talend_user_components</studioUserComponentFolder>
+				</configuration>
+				<executions>
+					<execution>
+						<id>tLOBDownload</id>
+						<goals>
+							<goal>component</goal>
+						</goals>
+						<configuration>
+							<componentName>tLOBDownload</componentName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
