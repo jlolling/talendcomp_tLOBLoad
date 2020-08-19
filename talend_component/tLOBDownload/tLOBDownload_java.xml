@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <COMPONENT> 
-  <HEADER AUTHOR="cimt AG" COMPATIBILITY="ALL" DATA_AUTO_PROPAGATE="false" PLATEFORM="ALL" RELEASE_DATE="20191027" SERIAL="" STARTABLE="false" STATUS="PROD" VERSION="1.1"> 
+  <HEADER AUTHOR="cimt AG" COMPATIBILITY="ALL" DATA_AUTO_PROPAGATE="false" PLATEFORM="ALL" RELEASE_DATE="20200819" SERIAL="" STARTABLE="false" STATUS="PROD" VERSION="1.2"> 
     <SIGNATURE/> 
   </HEADER>  
   <FAMILIES> 
@@ -29,13 +29,13 @@
     </PARAMETER> 
   </PARAMETERS>  
   <ADVANCED_PARAMETERS> 
-    <PARAMETER NAME="RELEASE_LABEL_20191027" FIELD="LABEL" COLOR="0;0;0" NUM_ROW="900">
-      <DEFAULT>Release: 1.1 build at: 20191027</DEFAULT>
+    <PARAMETER NAME="RELEASE_LABEL_20200819" FIELD="LABEL" COLOR="0;0;0" NUM_ROW="900">
+      <DEFAULT>Release: 1.2 build at: 20200819</DEFAULT>
     </PARAMETER>
   </ADVANCED_PARAMETERS>  
   <CODEGENERATION> 
     <IMPORTS> 
-      <IMPORT NAME="jlo-talendcomp-jdbcblob" MODULE="jlo-talendcomp-jdbcblob-1.1.jar" MVN="mvn:org.talend.libraries/jlo-talendcomp-jdbcblob-1.1/6.0.0-SNAPSHOT" REQUIRED="true"/>
+      <IMPORT NAME="jlo-talendcomp-jdbcblob" MODULE="jlo-talendcomp-jdbcblob-1.2.jar" MVN="mvn:org.talend.libraries/jlo-talendcomp-jdbcblob-1.2/6.0.0-SNAPSHOT" REQUIRED="true"/>
     </IMPORTS> 
   </CODEGENERATION>  
   <RETURNS> 
