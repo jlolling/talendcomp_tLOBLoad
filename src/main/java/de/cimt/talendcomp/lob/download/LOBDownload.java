@@ -147,6 +147,30 @@ public class LOBDownload {
 						is.close();
 					}
 				}
+			} else if (lobObject instanceof Byte[]) {
+				FileOutputStream os = new FileOutputStream(file);
+				try {
+				    Byte[] array = (Byte[]) lobObject;
+				    for (Byte b : array) {
+					    os.write(b);
+				    }
+				} finally {
+					if (os != null) {
+						os.flush();
+						os.close();
+					}
+				}
+			} else if (lobObject instanceof byte[]) {
+				FileOutputStream os = new FileOutputStream(file);
+				try {
+				    byte[] array = (byte[]) lobObject;
+				    os.write(array);
+				} finally {
+					if (os != null) {
+						os.flush();
+						os.close();
+					}
+				}
 			} else {
 				throw new Exception("Given object is not a Blob or Clob. It is of type:" + lobObject.getClass().getName());
 			}
