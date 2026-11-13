@@ -8,7 +8,7 @@
     <FAMILY>Databases</FAMILY> 
   </FAMILIES>  
   <DOCUMENTATION> 
-    <URL/> 
+    <URL>https://github.com/jlolling/talendcomp_tLOBLoad</URL> 
   </DOCUMENTATION>  
   <CONNECTORS> 
     <CONNECTOR CTYPE="FLOW" MAX_OUTPUT="1" MAX_INPUT="1"/>  
@@ -35,7 +35,7 @@
   </ADVANCED_PARAMETERS>  
   <CODEGENERATION> 
     <IMPORTS> 
-      <IMPORT NAME="jlo-talendcomp-jdbcblob" MODULE="jlo-talendcomp-jdbcblob-2.0.jar" MVN="mvn:org.talend.libraries/jlo-talendcomp-jdbcblob-2.0/6.0.0-SNAPSHOT" REQUIRED="true"/>
+      <IMPORT NAME="jlo-talendcomp-jdbcblob" MODULE="jlo-talendcomp-jdbcblob-2.0.jar" MVN="mvn:de.jlo.talendcomp/jlo-talendcomp-jdbcblob/2.0.0" REQUIRED="true"/>
     </IMPORTS> 
   </CODEGENERATION>  
   <RETURNS> 
